@@ -1,0 +1,143 @@
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+          }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .profile {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .profile div {
+      flex-basis: calc(50% - 20px);
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      color: #666;
+    }
+
+    .edit-profile-form {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button[type="submit"] {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #2980b9;
+    }
+    </style>
+</head>
+</html>
+<body>
+  
+<%- include('./layouts/header') %>
+<h1><span class="goback" onclick="window.history.back()">←</span> Profile</h1>
+
+<div class="profile">
+  <div>
+    <p class="title">ID</p>
+    <p class="subtitle"><%= person.id %></p>
+  </div>
+  <div>
+    <p class="title">Name</p>
+    <p class="subtitle"><%= person.name %></p>
+  </div>
+  <div>
+    <p class="title">Email/username</p>
+    <p class="subtitle"><%= person.email %></p>
+  </div>
+  <div>
+    <p class="title">Role</p>
+    <p class="subtitle"><%= person.role %></p>
+  </div>
+  <div>
+    <p class="title">User object</p>
+    <pre class="subtitle"><%= person %></pre>
+  </div>
+  
+  <!-- Edit Profile Form -->
+  <div class="edit-profile-form">
+    <h2>Edit Profile</h2>
+    <form action="/user/edit-profile" method="post">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="<%= person.name %>" required>
+      </div>
+      <div class="form-group">
+        <label for="password">New Password</label>
+        <input type="password" name="password" id="password">
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm New Password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword">
+      </div>
+      <button type="submit">Update Profile</button>
+    </form>
+  </div>
+</div>
+
+<%- include('./layouts/footer') %>
+
+</body>

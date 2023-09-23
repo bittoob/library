@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+  <!-- Add your CSS links here -->
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #3498db;
+      margin-bottom: 20px;
+    }
+
+    .lg-form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    .lg-form label {
+      font-weight: bold;
+    }
+
+    .lg-form input {
+      width: auto;
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .lg-form input[type="submit"] {
+      background-color: #3498db;
+      width: auto;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .lg-form input[type="submit"]:hover {
+      background-color: #2980b9;
+    }
+
+    .lg-form a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .lg-form a:hover {
+      text-decoration: underline;
+    }
+
+    .already-have-account {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .already-have-account p {
+      margin-bottom: 0;
+    }
+
+    .already-have-account a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .already-have-account a:hover {
+      text-decoration: underline;
+    }
+
+    /* Add responsive styles here */
+  </style>
+</head>
+
+<body>
+  <%- include ('./layouts/header') %>
+
+    <h1>Register</h1>
+    <form action="/auth/register" method="post" class="lg-form">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="<%= locals.name ? name : '' %>" required />
+      </div>
+      <div>
+        <label for="email">Email/Username</label>
+        <input type="text" name="email" id="email" value="<%= locals.email ? email : '' %>" required />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required />
+      </div>
+      <div>
+        <label for="password2">Confirm password</label>
+        <input type="password" name="password2" id="password2" required />
+      </div>
+      <div>
+        <input type="submit" value="Register" />
+      </div>
+    </form>
+    <div class="already-have-account">
+      <p>
+        Already have an account? <span><a href="/auth/login">Login</a></span>
+      </p>
+    </div>
+    <div>
+      <% if (user && user.name && user.email) { %>
+        <p>Welcome, <%= user.name %> (Email: <%= user.email %>)!</p>
+        <% } %>
+    </div>
+
+    <%- include ('./layouts/footer') %>
+</body>
+
+</html>

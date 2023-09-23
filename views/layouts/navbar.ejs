@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar page</title>
+
+  <style>
+    /* CSS styles for the navbar */
+.navbar {
+  background-color: #3498db;
+  color: white;
+  padding: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-toggle {
+  font-size: 12px;
+  cursor: pointer;
+  display: none;
+  
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+}
+
+.nav-list li {
+  margin-right: 15px;
+}
+
+.nav-list li:last-child {
+  margin-right: 0;
+}
+
+.nav-list a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-list a:hover {
+  color: #ecf0f1;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: #3498db;
+    width: 100%;
+    top: 60px;
+    left: 0;
+    padding: 10px;
+    border-top: 2px solid white;
+  }
+
+  .nav-list.active {
+    display: flex;
+  }
+
+  .nav-list a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 0;
+    transition: color 0.3s;
+  }
+
+  .nav-list a:hover {
+    color: #ecf0f1;
+  }
+  
+}
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <h2> Amity Online Library</h2>
+  
+  <div class="menu-toggle">&#9776;</div>
+  <ul class="nav-list">
+    <li><a href="/">Home</a></li>
+    
+    <% if (user) { %>
+    <li><a href="/user/profile">Profile</a></li>
+    <li><a href="/auth/books">Books</a></li>
+    <% if (user.role === 'ADMIN') { %>
+    <li><a href="/admin/users">Manage Users</a></li>
+    <li><a href="/auth/add">Add Books</a></li>
+    <% } %>
+    <li><a href="/auth/logout">Logout</a></li>
+    <% } else { %>
+    <li><a href="/auth/register">Register</a></li>
+    <li><a href="/auth/login">Login</a></li>
+    <% } %>
+  </ul>
+</nav>
+<script>
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navList = document.querySelector(".nav-list");
+
+  menuToggle.addEventListener("click", () => {
+    navList.classList.toggle("active");
+  });
+</script>
+
+</body>
+</html>

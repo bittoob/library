@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Role Based Access Control Tutorial</title>
+  
+  <!-- Add other CSS files if needed -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 1200px;
+      margin: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .table {
+      text-align: center;
+    }
+
+    .table th,
+    .table td {
+      padding: 10px;
+    }
+
+    .manage-user-form,
+    .create-user-form {
+      display: flex;
+      align-items: center;
+    }
+
+    .manage-user-form select,
+    .create-user-form select {
+      margin-right: 10px;
+    }
+
+    .btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      margin-top: 20px;
+      text-align: center;
+      color: #6c757d;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        width: 90%;
+
+      .table th,
+      .table td {
+        padding: 8px;
+      }
+
+      .manage-user-form,
+      .create-user-form {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .manage-user-form select,
+      .create-user-form select {
+        margin: 10px 0;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <%- include ('layouts/header') %>
+
+  <!-- Manage Users Section -->
+  <section class="container manage-users-container">
+    <h1 class="table">Manage Users</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.name %></td>
+          <td><a href="/admin/user/<%= user.id %>"><%= user.email %></a></td>
+          <td>
+            <form action="/admin/update-role/<%= user.id %>" method="post" class="manage-user-form">
+              <input type="hidden" name="id" value="<%= user.id %>" />
+              <select name="role" id="role">
+                <option value="ADMIN" <%= user.role === 'ADMIN' ? 'selected' : '' %>>Admin</option>
+                <option value="MODERATOR" <%= user.role === 'MODERATOR' ? 'selected' : '' %>>Moderator</option>
+                <option value="CLIENT" <%= user.role === 'CLIENT' ? 'selected' : '' %>>Client</option>
+              </select>
+              <input type="submit" value="Update" class="btn">
+            </form>
+          </td>
+          <td>
+            <form action="/admin/delete-user/<%= user.id %>" method="post">
+              <input type="submit" value="Delete User" class="btn">
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Create User Section -->
+  <section class="container create-user-container">
+    <h1 class="table">Create User</h1>
+    <form action="/admin/create-user" method="post" class="create-user-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select name="role" id="role" class="form-control" required>
+          <option value="ADMIN">Admin</option>
+          <option value="MODERATOR">Moderator</option>
+          <option value="CLIENT">Client</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Create User</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <%- include ('layouts/footer') %>
+  </footer>
+</body>
+
+</html>

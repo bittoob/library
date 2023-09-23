@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management Dashboard - Books</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      border-bottom: 1px solid #ddd;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .book-details {
+      flex: 2;
+    }
+    .book-actions {
+      flex: 1;
+      text-align: right;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #b0cee3;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    a.button:hover {
+      background-color: #6f9ebe;
+    }
+
+
+
+    .actions {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .actions a {
+      margin: 0 10px;
+      color: #3498db;
+      text-decoration: none;
+    }
+    .fixed-button {
+      position: fixed;
+      top: 50%; /* Adjust as needed */
+      right: 20px; /* Adjust as needed */
+      transform: translateY(-50%);
+      z-index: 1; /* Make sure it's above the scrolling content */
+    }
+  </style>
+</head>
+<body>
+  <a class="fixed-button button" href="/">Back To Dashboard</a>
+  
+
+  
+  <div class="container">
+    <h1>Books</h1>
+    <input type="text" id="searchInput" placeholder="Search books...">
+    <ul id="searchResults"></ul>
+
+
+  
+    <ul id="bookList">
+      <% books.forEach(book => { %>
+        <li>
+          <div class="book-details">
+          <strong class="title"><%= book.title.toLowerCase() %></strong><br>
+
+          <strong>Account Number:</strong> <%= book.account_number %><br>
+          <strong>Self Number:</strong> <%= book.self_number %><br>
+          <strong>Title:</strong> <%= book.title %><br>
+          
+        </div>
+        </li>
+      <% }); %>
+    </ul>
+
+    
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $('#searchInput').on('input', function () {
+        const searchTerm = $(this).val();
+  
+        $.ajax({
+          url: '/books/search', // Route for book searches
+          method: 'GET',
+          data: { q: searchTerm },
+          success: function (data) {
+            const searchResults = data.searchResults;
+  
+            const searchResultsList = $('#searchResults');
+            searchResultsList.empty();
+  
+            searchResults.forEach(function (book) {
+              const bookListItem = `
+              <li>
+                <div class="book-details">
+                  <strong class="title">${book.title.toLowerCase()}</strong><br>
+                  <strong>Account Number:</strong> ${book.account_number}<br>
+                  <strong>Self Number:</strong> ${book.self_number}<br>
+                  <strong>Title:</strong> ${book.title}<br>
+                </div>
+              </li>`;
+              searchResultsList.append(`<li>${book.title}</li>`);
+            });
+          },
+          error: function (error) {
+            console.error('Error fetching search results:', error);
+          },
+        });
+      });
+    });
+  </script>
+  
+
+  
+</body>
+</html>
