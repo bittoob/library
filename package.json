@@ -1,0 +1,42 @@
+{
+  "name": "rbac_tutorial",
+  "version": "1.0.0",
+  "description": "This is a Role Based Access Control application using Nodejs, Express, Passport Js, etc. You can use this application as the starting point for whatever project you are going to build which needs authentication and authorization.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.18.2",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.8.0",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^5.11.7",
+    "morgan": "^1.10.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "react-router-dom": "^6.14.2",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^14.0.0",
+    "jest": "^29.6.2",
+    "nodemon": "^2.0.6",
+    "react-scripts": "^5.0.1"
+  }
+}
